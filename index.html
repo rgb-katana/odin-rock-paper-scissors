@@ -5,8 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script defer src="./script.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700;900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/styles.css" />
-    <title>Document</title>
+    <title>ODIN-RPS</title>
   </head>
-  <body></body>
+  <body>
+    <div class="game--window">
+      <h1>What's your choice?</h1>
+      <div class="play--buttons">
+        <div class="button" data-choice="rock">ROCK</div>
+        <div class="button" data-choice="paper">PAPER</div>
+        <div class="button" data-choice="scissors">SCISSORS</div>
+        <div class="scores">
+          <div class="user--score">
+            &#128104;<span id="user--score">0</span>
+          </div>
+          <div class="separator">/</div>
+          <div class="computer--score">
+            &#128421;<span id="computer--score">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

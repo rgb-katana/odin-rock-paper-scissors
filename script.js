@@ -1,5 +1,10 @@
 'use strict';
 
+// Variables declaration
+const userChoice = document.querySelector('.play--buttons');
+const userScore = document.getElementById('user--score');
+const computerScore = document.getElementById('computer--score');
+
 function getComputerChoice() {
   return ['rock', 'paper', 'scissors'][Math.trunc(Math.random() * 3)];
 }
@@ -34,4 +39,18 @@ function game() {
     : `There is a draw, ${userScore}:${compScore}`;
 }
 
-console.log(game());
+// console.log(game());
+
+// Declare empty
+
+let playerSelection = '';
+// Assign here
+
+userChoice.addEventListener('click', function (e) {
+  if (e.target.dataset.choice === 'rock') playerSelection = 'rock';
+  if (e.target.dataset.choice === 'paper') playerSelection = 'paper';
+  if (e.target.dataset.choice === 'scissors') playerSelection = 'scissors';
+});
+
+const computerSelection = getComputerChoice();
+// console.log(playRound(playerSelection, computerSelection));

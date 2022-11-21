@@ -1,56 +1,89 @@
 'use strict';
 
-// Variables declaration
+// DOM variables declaration
 const userChoice = document.querySelector('.play--buttons');
 const userScore = document.getElementById('user--score');
 const computerScore = document.getElementById('computer--score');
+const gameWindow = document.querySelector('.game--window');
+const resultsWindow = document.querySelector('.results');
+const endScreen = document.querySelector('.end--screen');
+
+// Game variables
+let gameUserScore = 0;
+let gameCompScore = 0;
 
 function getComputerChoice() {
   return ['rock', 'paper', 'scissors'][Math.trunc(Math.random() * 3)];
 }
 
 function playRound(playerSelection, computerSelection) {
-  const playerSelectLower = playerSelection.toLowerCase();
-  if (playerSelectLower === computerSelection)
-    return `DRAW! ${playerSelectLower} and ${computerSelection}`;
-  if (playerSelectLower === 'scissors' && computerSelection === 'paper')
-    return `You WIN! ${playerSelectLower} beats ${computerSelection}}`;
-  if (playerSelectLower === 'rock' && computerSelection === 'scissors')
-    return `You WIN! ${playerSelectLower} beats ${computerSelection}}`;
-  if (playerSelectLower === 'paper' && computerSelection === 'rock')
-    return `You WIN! ${playerSelectLower} beats ${computerSelection}}`;
-  else return `You LOSE! ${computerSelection} beats ${playerSelectLower} `;
+  if (playerSelection === computerSelection) {
+    resultsWindow.innerText = `${playerSelection} / ${computerSelection}`;
+    return;
+  }
+  if (playerSelection === 'scissors' && computerSelection === 'paper') {
+    userScore.innerText = ++gameUserScore;
+    resultsWindow.innerText = `${playerSelection} / ${computerSelection}`;
+    return;
+  }
+  if (playerSelection === 'rock' && computerSelection === 'scissors') {
+    userScore.innerText = ++gameUserScore;
+    resultsWindow.innerText = `${playerSelection} / ${computerSelection}`;
+    return;
+  }
+  if (playerSelection === 'paper' && computerSelection === 'rock') {
+    userScore.innerText = ++gameUserScore;
+    resultsWindow.innerText = `${playerSelection} / ${computerSelection}`;
+    return;
+  } else {
+    computerScore.innerText = ++gameCompScore;
+    resultsWindow.innerText = `${playerSelection} / ${computerSelection}`;
+    return;
+  }
+}
+
+function end() {
+  if (gameUserScore === 5 || gameCompScore === 5) {
+    gameWindow.classList.add('hidden');
+    endScreen.classList.remove('hidden');
+  }
+  if (gameUserScore === 5) {
+    endScreen.innerText = `You WON!`;
+  } else endScreen.innerText = `You LOST!`;
+  endScreen.insertAdjacentHTML(
+    'beforeend',
+    `<div class="replay--button">REPLAY</div>`
+  );
+  endScreen.insertAdjacentHTML(
+    'afterbegin',
+    `<div class="result--score">&#128104; ${gameUserScore} | &#128421 ${gameCompScore}</div>`
+  );
+  const replayButton = document.querySelector('.replay--button');
+  replayButton.addEventListener('click', function () {
+    gameCompScore = 0;
+    gameUserScore = 0;
+    userScore.innerText = gameUserScore;
+    computerScore.innerText = gameCompScore;
+    resultsWindow.innerText = '';
+    endScreen.classList.add('hidden');
+    gameWindow.classList.remove('hidden');
+  });
 }
 
 function game() {
-  let userScore = 0;
-  let compScore = 0;
-  for (let i = 0; i < 5; i++) {
-    const playerSelection = prompt();
-    const computerSelection = getComputerChoice();
-    console.log(playRound(playerSelection, computerSelection));
-    if (/WIN/.test(playRound(playerSelection, computerSelection))) userScore++;
-    if (/LOSE/.test(playRound(playerSelection, computerSelection))) compScore++;
-  }
-  return userScore > compScore
-    ? `You win, ${userScore}:${compScore}`
-    : userScore < compScore
-    ? `You lose, ${compScore}:${userScore}`
-    : `There is a draw, ${userScore}:${compScore}`;
+  userChoice.addEventListener('click', function (e) {
+    const compChoice = getComputerChoice();
+    if (e.target.dataset.choice === 'rock') {
+      console.log(playRound('rock', compChoice));
+    }
+    if (e.target.dataset.choice === 'paper') {
+      console.log(playRound('paper', compChoice));
+    }
+    if (e.target.dataset.choice === 'scissors') {
+      console.log(playRound('scissors', compChoice));
+    }
+    end();
+  });
 }
 
-// console.log(game());
-
-// Declare empty
-
-let playerSelection = '';
-// Assign here
-
-userChoice.addEventListener('click', function (e) {
-  if (e.target.dataset.choice === 'rock') playerSelection = 'rock';
-  if (e.target.dataset.choice === 'paper') playerSelection = 'paper';
-  if (e.target.dataset.choice === 'scissors') playerSelection = 'scissors';
-});
-
-const computerSelection = getComputerChoice();
-// console.log(playRound(playerSelection, computerSelection));
+game();

@@ -20,6 +20,13 @@ body h1 {
   text-align: center;
 }
 
+.game--window {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: 1s 1 normal slidein;
+}
+
 .play--buttons {
   margin-top: 15px;
   display: flex;
@@ -59,6 +66,69 @@ span {
   font-weight: 900;
 }
 
+.results {
+  font-family: 'Roboto';
+  font-weight: 300;
+}
+
+.end--screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 300;
+  animation: 1s 1 normal slideinBackwards;
+}
+
+.replay--button {
+  background-color: lightslategray;
+  padding: 5px 10px;
+  margin: 10px;
+  margin-top: 15px;
+  font-weight: 700;
+  width: 100px;
+  text-align: center;
+}
+
+.replay--button:hover {
+  background-color: rgb(150, 170, 190);
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.result--score {
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+/* Animations  */
+@keyframes slidein {
+  from {
+    margin-bottom: 100%;
+    opacity: 0;
+  }
+  to {
+    margin-bottom: 0%;
+    opacity: 100%;
+  }
+}
+
+@keyframes slideinBackwards {
+  from {
+    margin-top: 100%;
+    opacity: 0;
+  }
+  to {
+    margin-top: 0%;
+    opacity: 100%;
+  }
+}
+
+/* Media quieries */
 @media only screen and (max-width: 600px) {
   .play--buttons {
     flex-direction: column;

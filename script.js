@@ -49,14 +49,24 @@ function end() {
   }
   if (gameUserScore === 5) {
     endScreen.innerText = `You WON!`;
-  } else endScreen.innerText = `You LOST!`;
+    endScreen.style.color = 'green';
+  } else {
+    endScreen.innerText = `You LOST!`;
+    endScreen.style.color = 'red';
+  }
   endScreen.insertAdjacentHTML(
     'beforeend',
     `<div class="replay--button">REPLAY</div>`
   );
   endScreen.insertAdjacentHTML(
     'afterbegin',
-    `<div class="result--score">&#128104; ${gameUserScore} | &#128421 ${gameCompScore}</div>`
+    `      <div class="scores">
+    <div class="user--score">&#128104;<span id="user--score">${gameUserScore}</span></div>
+    <div class="separator">/</div>
+    <div class="computer--score">
+      &#128421;<span id="computer--score">${gameCompScore}</span>
+    </div>
+  </div>`
   );
   const replayButton = document.querySelector('.replay--button');
   replayButton.addEventListener('click', function () {
